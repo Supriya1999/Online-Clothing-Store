@@ -1,0 +1,222 @@
+
+
+delimiter //
+create trigger size
+after insert on product
+for each row
+begin
+insert into sizes values(new.pid,1,new.sqty);
+insert into sizem values(new.pid,2,new.mqty);
+insert into sizel values(new.pid,3,new.lqty);
+end //
+delimiter ;
+
+delimiter //
+create trigger del
+after delete on sizes
+for each row
+begin
+delete from sizem where pid=old.pid;
+delete from sizel where pid=old.pid;
+delete from product where pid=old.pid;
+end //
+delimiter ;
+
+delimiter //
+create trigger small
+after update on sizes
+for each row
+begin
+update product set sqty=new.qty where pid=old.pid;
+end //
+delimiter ;
+
+delimiter //
+create trigger medium
+after update on sizem
+for each row
+begin
+update product set mqty=new.qty where pid=old.pid;
+end //
+delimiter ;
+
+delimiter //
+create trigger large
+after update on sizel
+for each row
+begin
+update product set lqty=new.qty where pid=old.pid;
+end //
+delimiter ;
+
+delimiter //
+create trigger update_qty
+after update on product
+for each row
+begin
+update sizes set qty=new.sqty where pid=old.pid;
+update sizem set qty=new.mqty where pid=old.pid;
+update sizel set qty=new.lqty where pid=old.pid;
+end //
+delimiter ;
+
+
+
+
+delimiter //
+create trigger negative_qty
+before insert on product
+for each row
+begin
+if new.tqty<0
+ then set new.tqty=0;
+end if;
+if new.sqty<0
+ then set new.sqty=0;
+end if;
+if new.mqty<0
+ then set new.mqty=0;
+end if;
+if new.lqty<0
+ then set new.lqty=0;
+end if;
+end //
+delimiter ;
+
+
+
+mysql> show tables;
++-----------------------+
+| Tables_in_clothescart |
++-----------------------+
+| admin                 |
+| product               |
+| size                  |
+| sizel                 |
+| sizem                 |
+| sizes                 |
+| users                 |
++-----------------------+
+7 rows in set (0.00 sec)
+
+mysql> desc admin;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| adminname | varchar(20) | YES  |     | NULL    |       |
+| password  | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc product;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| pid         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| pname       | varchar(20)  | YES  |     | NULL    |                |
+| price       | int(11)      | YES  |     | NULL    |                |
+| seller      | varchar(50)  | YES  |     | NULL    |                |
+| tqty        | int(11)      | YES  |     | NULL    |                |
+| description | varchar(200) | YES  |     | NULL    |                |
+| imgsrc      | varchar(100) | YES  |     | NULL    |                |
+| category    | varchar(5)   | YES  |     | NULL    |                |
+| sqty        | int(11)      | YES  |     | NULL    |                |
+| mqty        | int(11)      | YES  |     | NULL    |                |
+| lqty        | int(11)      | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+11 rows in set (0.00 sec)
+
+mysql> desc size;
++-------+------------+------+-----+---------+----------------+
+| Field | Type       | Null | Key | Default | Extra          |
++-------+------------+------+-----+---------+----------------+
+| sid   | int(11)    | NO   | PRI | NULL    | auto_increment |
+| size  | varchar(2) | YES  |     | NULL    |                |
++-------+------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from size;
++-----+------+
+| sid | size |
++-----+------+
+|   1 | S    |
+|   2 | M    |
+|   3 | L    |
++-----+------+
+3 rows in set (0.00 sec)
+
+mysql> desc sizes;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| pid   | int(11) | YES  | MUL | NULL    |       |
+| sid   | int(11) | YES  | MUL | NULL    |       |
+| qty   | int(11) | YES  |     | NULL    |       |
++-------+---------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc sizem;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| pid   | int(11) | YES  | MUL | NULL    |       |
+| sid   | int(11) | YES  | MUL | NULL    |       |
+| qty   | int(11) | YES  |     | NULL    |       |
++-------+---------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc sizel;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| pid   | int(11) | YES  | MUL | NULL    |       |
+| sid   | int(11) | YES  | MUL | NULL    |       |
+| qty   | int(11) | YES  |     | NULL    |       |
++-------+---------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc users;;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| uid      | int(11)      | NO   | PRI | NULL    | auto_increment |
+| fname    | varchar(20)  | YES  |     | NULL    |                |
+| lname    | varchar(20)  | YES  |     | NULL    |                |
+| username | varchar(25)  | YES  |     | NULL    |                |
+| email    | varchar(60)  | YES  |     | NULL    |                |
+| password | varchar(30)  | YES  |     | NULL    |                |
+| phone    | varchar(20)  | YES  |     | NULL    |                |
+| address  | varchar(100) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+8 rows in set (0.00 sec)
+
+
+create table users (fname varchar(20), lname varchar(20), username varchar(25) primary key, email varchar(60), password varchar(30), phone varchar(20), address varchar(100));
+
+create table admin (adminname varchar(20), password varchar(20));
+
+create table product (pid int primary key auto_increment, pname varchar(50), price int(11), seller varchar(50), tqty int(11), description varchar(100), imgsrc varchar(100), category varchar(30), sqty int(11), mqty int(11), lqty int(11));
+
+create table size(sid int primary key auto_increment, size varchar(2));
+
+create table sizes(pid int, sid int, qty int, foreign key(pid) references product(pid), foreign key (sid) references size(sid));
+
+
+create table sizem(pid int, sid int, qty int, foreign key(pid) references product(pid), foreign key (sid) references size(sid));
+
+
+create table sizel(pid int, sid int, qty int, foreign key(pid) references product(pid), foreign key (sid) references size(sid));
+
+
+ create table address(user varchar(25),orderid int, fname varchar(20), lname varchar(20), phone varchar(20), newaddress varchar(100), foreign key(user) references users(username), foreign key(orderid) references orders(orderid));
+
+ create table orders(user varchar(30),orderid int primary key auto_increment,sid int,quantity int,pid int,amount int, status varchar(30) dafault 'Pending', foreign key(pid) references product(pid),foreign key(sid) references size(sid),foreign key(user) references users(username));
+ 
+
+
+
+
+create table orders(user varchar(30), orderid int primary key auto_increment, sid int, quantity int, pid int, amount int(10), status varchar(30) default 'Pending', foreign key(pid) references product(pid), foreign key(sid) references size(sid), foreign key (user) references users(username));
+
+
+

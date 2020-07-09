@@ -1,0 +1,193 @@
+<html>
+<title>  </title>
+<head>
+<style>
+#grad2 {
+    height: 650px;
+    width: 1365 px;
+    background-image: linear-gradient(#ffffff,#3CB371,#48D1CC,#003333);
+    opacity: 0.2 ;
+}
+
+.img{
+    position: auto;
+    background: url(fe2.png);
+    background-repeat: no-repeat;
+    background-size: 110%;
+}
+
+.circle{
+    position: fixed;
+    top: 0px;
+    left: 330px;
+    height: 650px;
+    width: 650px;
+    border-radius: 50%;
+    background: white;
+}
+
+.txt{
+    position: fixed;
+    top: 70px;
+    left: 580px;
+    color: #3CB371;
+    font: italic;
+    font-size: 40px;
+}
+
+ul {
+    background-color: #3CB371;
+    border-radius: 8px;
+    padding: 20px 54px;
+    font-size: 16px;
+    left: 550px;
+    position: fixed;
+    top: 400px;
+    cursor: pointer;
+}
+
+ul1 {
+    background-color: #3CB371;
+    border-radius: 8px;
+    padding: 20px 54px;
+    font-size: 16px;
+    left: 540px;
+    position: fixed;
+    top: 500px;
+    cursor: pointer;
+}
+
+ul2 {
+    background-color: #3CB371;
+    border-radius: 8px;
+    padding: 3px 10px;
+    font-size: 16px;
+    right: 10px;
+    position: fixed;
+    top: 615px;
+    cursor: pointer;
+}
+
+.topmenu a{
+ 
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 38px;
+    text-decoration: none;
+}
+
+body {font-family: Verdana, sans-serif; margin:0}
+/* Slideshow container */
+.slideshow-container {
+  position: relative;
+  background: white;
+  top: 280px;
+
+}
+/* Slides */
+.mySlides {
+  text-align: center;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -30px;
+  padding: 16px;
+  color: #888;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+}
+/* Position the "next button" to the right */
+.next {
+  position: absolute;
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+}
+/* Add an italic font style to all quotes */
+q {font-style: italic;}
+</style>
+</head>
+<body>
+<div class="img">
+<div id="grad2"></div>
+ </div>
+ <div class="circle" align="center">
+   <div class="txt">
+   <center><b><p style="font-family:'Courier New'">Clothes<br>&<br>Carts</b></center>
+   </div>
+   
+<div class="slideshow-container">
+
+<div class="mySlides">
+  <center><q><b>You can have anything you want in life if you dress for it</b></q></center>
+
+</div>
+
+<div class="mySlides">
+  <center><q><b>Welcome to Clothes & Carts</b></q></center>
+
+</div>
+
+<div class="mySlides">
+  <center><q><b>You wish , We fulfill</b></q></center>
+
+</div>
+
+</div>
+
+<script>
+var slideIndex = 0;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides() {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  
+  for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none"; 
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1} 
+    slides[slideIndex-1].style.display = "block"; 
+    setTimeout(showSlides, 2000); 
+}
+</script>   
+   
+<center>
+<div class="topmenu">
+<ul>
+	<a href="login.html"><b>Login</b></a>
+</ul>
+<br>
+<ul1>
+	<a href="register.php"><b>Sign Up</b></a>
+</ul1>
+<br>
+<ul2>
+	<a href="adlogin.html"><b>Admin Login</b></a>
+</ul2>
+</div>
+</center>
+ </div>
+</body>
+</html>

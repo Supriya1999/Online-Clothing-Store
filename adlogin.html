@@ -1,0 +1,83 @@
+<html>
+<head>
+
+<script type="text/javascript">
+function LOGIN(form)
+{
+ if(form.username.value == "") {
+      alert("Error: Username is empty!");
+      form.username.focus();
+      return false;
+    }
+ if(form.password.value == "") {
+      alert("Error: Password is empty!");
+      form.username.focus();
+      return false;
+    }
+ return true; 
+}
+</script>
+
+<style> 
+.button{ background-color: #FFFF33;
+         padding: 15px 32px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+    	 font-size: 16px;
+   	 margin: 4px 2px;
+   	 cursor: pointer;
+	 border-radius: 8px;
+}
+div {
+    
+    width: 300px;
+    border: 3px solid grey;
+    padding: 25px;
+    margin: 25px;
+}
+a:link, a:visited {
+    background-color: #DCDCDC;
+    color: black;
+    padding: 10px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius:8px
+}
+LOGIN
+{                                         
+    margin-left: 70px; 
+    font-weight: bold ; 
+    float: left; 
+    clear: left; 
+    width: 100px; 
+    text-align: left; 
+    margin-right: 10px; 
+    font-family:sans-serif,bold, Arial, Helvetica; 
+    font-size:14px; 
+} 
+</style>
+
+
+
+</head>
+<body >
+
+<center>
+<div>
+<h3><b>Admin Login</b></h3>
+
+<form method="POST" action="adlogin.php" onsubmit="return LOGIN(this)">
+
+  
+  Username:&nbsp <input type="text" name="username"><br><br>
+ 
+  Password:&nbsp <input type="password" name="password"><br><br>
+  <input class="button" type="submit" value="login" name="login">
+
+</form>
+</div>
+
+</body>
+</html>
